@@ -1,0 +1,17 @@
+name: Deploy Rancher-Traefik
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install k3s + Rancher + Traefik
+        run: |
+          chmod +x scripts/install.sh
+          ./scripts/install.sh

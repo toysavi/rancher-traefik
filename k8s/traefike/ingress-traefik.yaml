@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  namespace: kube-system
+spec:
+  entryPoints:
+    - websecure   # Port 443
+  routes:
+    - match: Host(`traefik.${BASE_DOMAIN}`)
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+  tls:
+    # If SSL_MODE=letsencrypt
+    certResolver: letsencrypt
+    # If SSL_MODE=custom
+    # secretName: custom-tls
